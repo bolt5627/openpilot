@@ -45,7 +45,8 @@ class EonFanController(BaseFanController):
   # Temp thresholds to control fan speed - low hysteresis
   TEMP_THRS_L = [42.5, 57.5, 72.5, 10000]
   # Fan speed options
-  FAN_SPEEDS = [0, 16384, 32768, 65535]
+  ##FAN_SPEEDS = [0, 16384, 32768, 65535]
+  FAN_SPEEDS = [32768, 32768, 32768, 65535]
 
   def __init__(self) -> None:
     super().__init__()

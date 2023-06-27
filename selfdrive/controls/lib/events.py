@@ -560,10 +560,10 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.promptRepeat, 1.),
   },
 
-  ### Thrown when the fan is driven at >50% but is not rotating
-  ###EventName.fanMalfunction: {
-  ###  ET.PERMANENT: NormalPermanentAlert(_("Fan Malfunction"), _("Likely Hardware Issue")),
-  ###},
+  # Thrown when the fan is driven at >50% but is not rotating
+  EventName.fanMalfunction: {
+    ET.PERMANENT: NormalPermanentAlert(_("Fan Malfunction"), _("Likely Hardware Issue")),
+  },
 
   # Camera is not outputting frames
   EventName.cameraMalfunction: {

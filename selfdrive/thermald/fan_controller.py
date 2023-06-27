@@ -110,6 +110,6 @@ class UnoFanController(BaseFanController):
     new_speed = int(interp(max_cpu_temp, [40.0, 80.0], [0, 80]))
 
     if not ignition:
-      new_speed = min(15, new_speed)
+      new_speed = min(80, new_speed)
 
     return new_speed

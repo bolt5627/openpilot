@@ -45,7 +45,7 @@ class EonFanController(BaseFanController):
   # Temp thresholds to control fan speed - low hysteresis
   TEMP_THRS_L = [42.5, 57.5, 72.5, 10000]
   # Fan speed options
-  ##FAN_SPEEDS = [0, 16384, 32768, 65535]
+  ######FAN_SPEEDS = [0, 16384, 32768, 65535]
   FAN_SPEEDS = [32768, 65535, 65535, 65535]
 
   def __init__(self) -> None:
@@ -68,7 +68,8 @@ class EonFanController(BaseFanController):
   def set_eon_fan(self, speed: int) -> None:
     if self.fan_speed != speed:
       # FIXME: this is such an ugly hack to get the right index
-      val = speed // 16384
+      ######val = speed // 16384
+      val = speed // 65535
 
       bus = SMBus(7, force=True)
       if self.is_oneplus:

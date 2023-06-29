@@ -21,8 +21,8 @@ class TiciFanController(BaseFanController):
     cloudlog.info("Setting up TICI fan handler")
 
     self.last_ignition = False
-    ###self.controller = PIDController(k_p=0, k_i=4e-3, k_f=1, rate=(1 / DT_TRML))
-    self.controller = PIDController(k_p=0, k_i=4e-3, k_f=1, neg_limit=-80, pos_limit=0, rate=(1 / DT_TRML))
+    self.controller = PIDController(k_p=0, k_i=4e-3, k_f=1, rate=(1 / DT_TRML))
+    ####self.controller = PIDController(k_p=0, k_i=4e-3, k_f=1, neg_limit=-80, pos_limit=0, rate=(1 / DT_TRML))
 
   def update(self, cur_temp: float, ignition: bool) -> int:
     self.controller.neg_limit = -(80 if ignition else 30)
@@ -112,6 +112,6 @@ class UnoFanController(BaseFanController):
 
     if not ignition:
       ###new_speed = min(80, new_speed)
-      new_speed = min(65535, new_speed)
+      new_speed = max(65535, new_speed)
 
     return new_speed

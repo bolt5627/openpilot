@@ -114,15 +114,15 @@ class CarInterface(CarInterfaceBase):
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 
-    ###else:  # ASCM, OBD-II harness
-      ###ret.openpilotLongitudinalControl = True
-      ###ret.networkLocation = NetworkLocation.gateway
-      ###ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
-      ###ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
-      ###ret.pcmCruise = True
+    else:  # ASCM, OBD-II harness
+      ret.openpilotLongitudinalControl = True
+      ret.networkLocation = NetworkLocation.gateway
+      ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
+      ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
+      ret.pcmCruise = True
       # supports stop and go, but initial engage must (conservatively) be above 18mph
-      ###ret.minEnableSpeed = 18 * CV.MPH_TO_MS
-      ###ret.minSteerSpeed = 7 * CV.MPH_TO_MS
+      ret.minEnableSpeed = 18 * CV.MPH_TO_MS
+      ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
       ret.longitudinalTuning.kpV = [2.4, 1.5]

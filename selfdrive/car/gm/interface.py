@@ -96,18 +96,17 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ###ret.longitudinalTuning.kpV = [2.0, 1.5]
-      ###ret.longitudinalTuning.kiV = [0.72]
-      ###ret.stoppingDecelRate = 2.0  # reach brake quickly after enabling
-      ###ret.vEgoStopping = 0.25
-      ###ret.vEgoStarting = 0.25
+      ###ret.longitudinalTuning.kpV = [2.4, 1.5]
+      ###ret.longitudinalTuning.kiV = [0.36]
+      ###ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
+      ###ret.vEgoStopping = 0.1
+      ###ret.vEgoStarting = 0.1
 
       ret.longitudinalTuning.kpV = [2.4, 1.5]
       ret.longitudinalTuning.kiV = [0.36]
-      ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
+      ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.1
       ret.vEgoStarting = 0.1
-      ret.startAccel = 1.0
 
       if experimental_long:
         ret.pcmCruise = False
@@ -123,8 +122,8 @@ class CarInterface(CarInterfaceBase):
       ###ret.pcmCruise = True
       # supports stop and go, but initial engage must (conservatively) be above 18mph
       ###ret.minEnableSpeed = 18 * CV.MPH_TO_MS
-      ret.minEnableSpeed = 0 * CV.MPH_TO_MS
-      ret.minSteerSpeed = 7 * CV.MPH_TO_MS
+      ###ret.minEnableSpeed = 0 * CV.MPH_TO_MS
+      ###ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
       ret.longitudinalTuning.kpV = [2.4, 1.5]
@@ -226,7 +225,7 @@ class CarInterface(CarInterfaceBase):
       ret.wheelbase = 2.63779
       ret.steerRatio = 17.3
       ret.centerToFront = 2.15  # measured
-      tire_stiffness_factor = 0.444
+      tire_stiffness_factor = 0.469 # Stock Michelin Energy Saver A/S, LiveParameters
       ret.steerActuatorDelay = 0.10
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
    

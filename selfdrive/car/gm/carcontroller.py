@@ -144,6 +144,16 @@ class CarController:
           self.last_button_frame = self.frame
           can_sends.append(gmcan.create_buttons(self.packer_pt, CanBus.CAMERA, CS.buttons_counter, CruiseButtons.CANCEL))
 
+
+    # Resume allowed for ASCM and CAM, OP and Stock long
+    # TODO: @sshane: cruiseControl.resume logic may need review for stock long
+    # TODO: Spamming repeatedly faster than 100ms can cause fault (cruise main off)
+    if (self.frame - self.last_button_frame) * DT_CTRL > 0.2:
+      if CC.cruiseControl.resume:
+        self.last_button_frame = self.frame
+        # CS.buttons_counter = (CS.buttons_counter + 1) % 4
+        can_sends.append(gmcan.create_buttons(self.packer_pt, CanBus.POWERTRAIN, (CS.buttons_counter + 1) % 4, CruiseButtons.RES_ACCEL))
+
     if self.CP.networkLocation == NetworkLocation.fwdCamera:
       # Silence "Take Steering" alert sent by camera, forward PSCMStatus with HandsOffSWlDetectionStatus=1
       if self.frame % 10 == 0:

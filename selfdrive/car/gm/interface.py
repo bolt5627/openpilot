@@ -107,7 +107,7 @@ class CarInterface(CarInterfaceBase):
       ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.1
       ###ret.vEgoStarting = 0.5
-      ret.vEgoStarting = 0.5
+      ret.vEgoStarting = 0.1
 
       if experimental_long:
         ret.pcmCruise = False

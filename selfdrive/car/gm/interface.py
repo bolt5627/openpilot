@@ -221,13 +221,12 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 1.0
       
     elif candidate == CAR.BOLT_EUV:
-      ## ret.minEnableSpeed = -1.  # engage speed is decided by pcm
       ret.minEnableSpeed = -1.  # engage speed is decided by pcm
       ret.mass = 1669. + STD_CARGO_KG
       ret.wheelbase = 2.63779
       ret.steerRatio = 17.3
       ret.centerToFront = 2.15  # measured
-      tire_stiffness_factor = 1.0
+      tire_stiffness_factor = 0.444
       ret.steerActuatorDelay = 0.10
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
    

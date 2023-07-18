@@ -82,9 +82,11 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalTuning.deadzoneBP = [0.]
     ret.longitudinalTuning.deadzoneV = [0.15]
 
-    ret.longitudinalTuning.kpBP = [5., 35.]
+    ###ret.longitudinalTuning.kpBP = [5., 35.]
+    ###ret.longitudinalTuning.kiBP = [0.]
+    ret.longitudinalTuning.kpBP = [0., 30.]
     ret.longitudinalTuning.kiBP = [0.]
-
+    
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
       ret.networkLocation = NetworkLocation.fwdCamera

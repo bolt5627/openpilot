@@ -113,6 +113,6 @@ class UnoFanController(BaseFanController):
     ###if not ignition:
     if ignition:
       ##new_speed = min(31535, new_speed)
-      new_speed = medium(32768, new_speed)
+      new_speed = max(32768, new_speed)
 
     return new_speed

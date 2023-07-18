@@ -11,7 +11,7 @@ from selfdrive.controls.lib.pid import PIDController
 
 class BaseFanController(ABC):
   @abstractmethod
-  def update(self, cur_temp: float, ignition: bool) -> int:
+  def update(self, max_cpu_temp: float, ignition: bool) -> int:
     pass
 
 
@@ -21,20 +21,19 @@ class TiciFanController(BaseFanController):
     cloudlog.info("Setting up TICI fan handler")
 
     self.last_ignition = False
-    self.controller = PIDController(k_p=0, k_i=4e-3, k_f=1, rate=(1 / DT_TRML))
-    ##self.controller = PIDController(k_p=0, k_i=4e-3, k_f=1, neg_limit=-80, pos_limit=0, rate=(1 / DT_TRML))
+    self.controller = PIDController(k_p=0, k_i=4e-3, k_f=1, neg_limit=-80, pos_limit=0, rate=(1 / DT_TRML))
 
-  def update(self, cur_temp: float, ignition: bool) -> int:
+  def update(self, max_cpu_temp: float, ignition: bool) -> int:
     self.controller.neg_limit = -(80 if ignition else 30)
     self.controller.pos_limit = -(30 if ignition else 0)
 
     if ignition != self.last_ignition:
       self.controller.reset()
 
-    error = 70 - cur_temp
+    error = 70 - max_cpu_temp
     fan_pwr_out = -int(self.controller.update(
                       error=error,
-                      feedforward=interp(cur_temp, [60.0, 100.0], [0, -80])
+                      feedforward=interp(max_cpu_temp, [60.0, 100.0], [0, -80])
                     ))
 
     self.last_ignition = ignition
@@ -46,8 +45,7 @@ class EonFanController(BaseFanController):
   # Temp thresholds to control fan speed - low hysteresis
   TEMP_THRS_L = [42.5, 57.5, 72.5, 10000]
   # Fan speed options
-  ###FAN_SPEEDS = [0, 16384, 32768, 65535]
-  FAN_SPEEDS = [65515, 65535, 65535, 65535]
+  FAN_SPEEDS = [0, 16384, 32768, 65535]
 
   def __init__(self) -> None:
     super().__init__()
@@ -69,8 +67,7 @@ class EonFanController(BaseFanController):
   def set_eon_fan(self, speed: int) -> None:
     if self.fan_speed != speed:
       # FIXME: this is such an ugly hack to get the right index
-      ####val = speed // 16384
-      val = speed // 65525
+      val = speed // 16384
 
       bus = SMBus(7, force=True)
       if self.is_oneplus:
@@ -108,11 +105,9 @@ class UnoFanController(BaseFanController):
     cloudlog.info("Setting up UNO fan handler")
 
   def update(self, max_cpu_temp: float, ignition: bool) -> int:
-    new_speed = int(interp(max_cpu_temp, [40.0, 80.0], [0, 80]))
+    new_speed = int(interp(max_cpu_temp, [40.0, 60.0, 70.0, 80.0], [0, 20, 50, 80]))
 
-    ###if not ignition:
-    if ignition:
-      ##new_speed = min(31535, new_speed)
-      new_speed = max(32768, new_speed)
+    if not ignition:
+      new_speed = min(15, new_speed)
 
     return new_speed

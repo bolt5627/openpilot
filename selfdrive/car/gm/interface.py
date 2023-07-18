@@ -72,7 +72,7 @@ class CarInterface(CarInterfaceBase):
   def _get_params(ret, candidate, fingerprint, car_fw, experimental_long, docs):
     ret.carName = "gm"
     ret.safetyConfigs = [get_safety_config(car.CarParams.SafetyModel.gm)]
-    ret.autoResumeSng = True
+    ret.autoResumeSng = False
 
     if candidate in EV_CAR:
       ret.transmissionType = TransmissionType.direct
@@ -95,11 +95,11 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ret.longitudinalTuning.kpV = [2.0, 1.5]
-      ret.longitudinalTuning.kiV = [0.72]
-      ret.stoppingDecelRate = 2.0  # reach brake quickly after enabling
-      ret.vEgoStopping = 0.25
-      ret.vEgoStarting = 0.25
+      ret.longitudinalTuning.kpV = [2.4, 1.5]
+      ret.longitudinalTuning.kiV = [0.36]
+      ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
+      ret.vEgoStopping = 0.1
+      ret.vEgoStarting = 0.1
 
       if experimental_long:
         ret.pcmCruise = False

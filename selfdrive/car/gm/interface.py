@@ -96,35 +96,16 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ###ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ###ret.longitudinalTuning.kiV = [0.36]
-      ###ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
-      ###ret.vEgoStopping = 0.1
-      ###ret.vEgoStarting = 0.1
-
       ret.longitudinalTuning.kpV = [2.4, 1.5]
       ret.longitudinalTuning.kiV = [0.36]
-      ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
+      ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.1
-      ###ret.vEgoStarting = 0.5
       ret.vEgoStarting = 0.1
 
       if experimental_long:
         ret.pcmCruise = False
-        ###ret.pcmCruise = True
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
-
-    ###else:  # ASCM, OBD-II harness
-      ###ret.openpilotLongitudinalControl = True
-      ###ret.networkLocation = NetworkLocation.gateway
-      ###ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
-      ###ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
-      ###ret.pcmCruise = True
-      # supports stop and go, but initial engage must (conservatively) be above 18mph
-      ###ret.minEnableSpeed = 18 * CV.MPH_TO_MS
-      ###ret.minEnableSpeed = 0 * CV.MPH_TO_MS
-      ###ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
       ret.longitudinalTuning.kpV = [2.4, 1.5]
@@ -223,10 +204,10 @@ class CarInterface(CarInterfaceBase):
     elif candidate == CAR.BOLT_EUV:
       ret.mass = 1669. + STD_CARGO_KG
       ret.wheelbase = 2.63779
-      ret.steerRatio = 17.3
+      ret.steerRatio = 16.8
       ret.centerToFront = ret.wheelbase * 0.4
       tire_stiffness_factor = 1.0
-      ret.steerActuatorDelay = 0.1
+      ret.steerActuatorDelay = 0.2
       ret.minEnableSpeed = -1.
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
    

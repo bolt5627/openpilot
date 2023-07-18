@@ -88,6 +88,7 @@ class CarInterface(CarInterfaceBase):
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
       ret.networkLocation = NetworkLocation.fwdCamera
+      ###ret.radarUnavailable = False  # no radar
       ret.radarUnavailable = True  # no radar
       ret.pcmCruise = True
       ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
@@ -95,25 +96,35 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
+      ###ret.longitudinalTuning.kpV = [2.4, 1.5]
+      ###ret.longitudinalTuning.kiV = [0.36]
+      ###ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
+      ###ret.vEgoStopping = 0.1
+      ###ret.vEgoStarting = 0.1
+
       ret.longitudinalTuning.kpV = [2.4, 1.5]
       ret.longitudinalTuning.kiV = [0.36]
-      ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
+      ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.1
+      ###ret.vEgoStarting = 0.5
       ret.vEgoStarting = 0.1
 
       if experimental_long:
         ret.pcmCruise = False
+        ###ret.pcmCruise = True
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 
-    else:  # ASCM, OBD-II harness
-      ret.openpilotLongitudinalControl = True
-      ret.networkLocation = NetworkLocation.gateway
-      ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
-      ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
+    ###else:  # ASCM, OBD-II harness
+      ###ret.openpilotLongitudinalControl = True
+      ###ret.networkLocation = NetworkLocation.gateway
+      ###ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
+      ###ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
+      ###ret.pcmCruise = True
       # supports stop and go, but initial engage must (conservatively) be above 18mph
-      ret.minEnableSpeed = 18 * CV.MPH_TO_MS
-      ret.minSteerSpeed = 7 * CV.MPH_TO_MS
+      ###ret.minEnableSpeed = 18 * CV.MPH_TO_MS
+      ###ret.minEnableSpeed = 0 * CV.MPH_TO_MS
+      ###ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
       ret.longitudinalTuning.kpV = [2.4, 1.5]
@@ -208,16 +219,17 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.13, 0.24], [0.01, 0.02]]
       ret.lateralTuning.pid.kf = 0.000045
       tire_stiffness_factor = 1.0
-
+      
     elif candidate == CAR.BOLT_EUV:
       ret.mass = 1669. + STD_CARGO_KG
       ret.wheelbase = 2.63779
-      ret.steerRatio = 16.8
+      ret.steerRatio = 17.3
       ret.centerToFront = ret.wheelbase * 0.4
       tire_stiffness_factor = 1.0
-      ret.steerActuatorDelay = 0.2
+      ret.steerActuatorDelay = 0.1
+      ret.minEnableSpeed = -1.
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
-
+   
     elif candidate == CAR.SILVERADO:
       ret.mass = 2200. + STD_CARGO_KG
       ret.wheelbase = 3.75
@@ -269,6 +281,8 @@ class CarInterface(CarInterfaceBase):
       if any(b.type == ButtonType.accelCruise and b.pressed for b in ret.buttonEvents):
         events.add(EventName.buttonEnable)
 
+    # Enabling at a standstill with brake is allowed
+    # TODO: verify 17 Volt can enable for the first time at a stop and allow for all GMs
     # Enabling at a standstill with brake is allowed
     # TODO: verify 17 Volt can enable for the first time at a stop and allow for all GMs
     #below_min_enable_speed = ret.vEgo < self.CP.minEnableSpeed or self.CS.moving_backward

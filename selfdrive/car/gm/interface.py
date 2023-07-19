@@ -86,8 +86,9 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.kpBP = [5., 40.]
     ###ret.longitudinalTuning.kiBP = [0.]
-    ret.longitudinalTuning.kpBP = [0.]
-    ret.longitudinalTuning.kiBP = [0.]
+    #####ret.longitudinalTuning.kpBP = [[0.], [0.]]
+    #####ret.longitudinalTuning.kiBP = [0.]
+    
     
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
@@ -101,7 +102,9 @@ class CarInterface(CarInterfaceBase):
       # Tuning for experimental long
       ###ret.longitudinalTuning.kpV = [2.4, 1.5]
       ###ret.longitudinalTuning.kiV = [0.36]
+      ret.longitudinalTuning.kpBP = [[0.], [0.]]
       ret.longitudinalTuning.kpV = [0.]
+      ret.longitudinalTuning.kiBP = [0.]
       ret.longitudinalTuning.kiV = [0.]
       ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.25

@@ -84,7 +84,7 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.kpBP = [5., 35.]
     ###ret.longitudinalTuning.kiBP = [0.]
-    ret.longitudinalTuning.kpBP = [0., 30.]
+    ret.longitudinalTuning.kpBP = [5., 40.]
     ret.longitudinalTuning.kiBP = [0.]
     
     if candidate in CAMERA_ACC_CAR:
@@ -100,7 +100,7 @@ class CarInterface(CarInterfaceBase):
       # Tuning for experimental long
       ret.longitudinalTuning.kpV = [2.4, 1.5]
       ret.longitudinalTuning.kiV = [0.36]
-      ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
+      ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.1
       ret.vEgoStarting = 0.1
 
@@ -110,8 +110,10 @@ class CarInterface(CarInterfaceBase):
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 
       # Tuning
+      ###ret.longitudinalTuning.kpV = [2.4, 1.5]
+      ###ret.longitudinalTuning.kiV = [0.36]
       ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ret.longitudinalTuning.kiV = [0.36]
+      ret.longitudinalTuning.kiV = [0.]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is

@@ -112,8 +112,8 @@ class CarInterface(CarInterfaceBase):
       # Tuning
       ###ret.longitudinalTuning.kpV = [2.4, 1.5]
       ###ret.longitudinalTuning.kiV = [0.36]
-      ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ret.longitudinalTuning.kiV = [0.]
+      #####ret.longitudinalTuning.kpV = [2.4, 1.5]
+      #####ret.longitudinalTuning.kiV = [0.]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is
@@ -122,15 +122,15 @@ class CarInterface(CarInterfaceBase):
                       (ret.networkLocation == NetworkLocation.gateway and ret.radarUnavailable)
 
     # Start with a baseline tuning for all GM vehicles. Override tuning as needed in each model section below.
-    ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
-    ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.2], [0.00]]
-    ret.lateralTuning.pid.kf = 0.00004   # full torque for 20 deg at 80mph means 0.00007818594
-    ret.steerActuatorDelay = 0.1  # Default delay, not measured yet
-    tire_stiffness_factor = 0.444  # not optimized yet
+    #####ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
+    #####ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.2], [0.00]]
+    #####ret.lateralTuning.pid.kf = 0.00004   # full torque for 20 deg at 80mph means 0.00007818594
+    #####ret.steerActuatorDelay = 0.1  # Default delay, not measured yet
+    #####tire_stiffness_factor = 0.444  # not optimized yet
 
-    ret.steerLimitTimer = 0.4
-    ret.radarTimeStep = 0.0667  # GM radar runs at 15Hz instead of standard 20Hz
-    ret.longitudinalActuatorDelayUpperBound = 0.5  # large delay to initially start braking
+    #####ret.steerLimitTimer = 0.4
+    #####ret.radarTimeStep = 0.0667  # GM radar runs at 15Hz instead of standard 20Hz
+    #####ret.longitudinalActuatorDelayUpperBound = 0.5  # large delay to initially start braking
 
     if candidate == CAR.VOLT:
       ret.mass = 1607. + STD_CARGO_KG

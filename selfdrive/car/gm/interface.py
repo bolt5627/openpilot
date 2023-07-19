@@ -81,7 +81,7 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.deadzoneBP = [0.]
     ###ret.longitudinalTuning.deadzoneV = [0.15]
-    ret.longitudinalTuning.deadzoneBP = [0.,10.0]
+    ret.longitudinalTuning.deadzoneBP = [0.]
     ret.longitudinalTuning.deadzoneV = [0.15]
 
     ###ret.longitudinalTuning.kpBP = [5., 40.]
@@ -92,7 +92,6 @@ class CarInterface(CarInterfaceBase):
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
       ret.networkLocation = NetworkLocation.fwdCamera
-      ###ret.radarUnavailable = False  # no radar
       ret.radarUnavailable = True  # no radar
       ret.pcmCruise = True
       ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
@@ -109,8 +108,7 @@ class CarInterface(CarInterfaceBase):
       ret.vEgoStarting = 0.25
 
       if experimental_long:
-        ###ret.pcmCruise = False
-        ret.pcmCruise = True
+        ret.pcmCruise = False
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 

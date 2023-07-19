@@ -81,8 +81,8 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.deadzoneBP = [0.]
     ###ret.longitudinalTuning.deadzoneV = [0.15]
-    ret.longitudinalTuning.deadzoneBP = [0.,9.]
-    ret.longitudinalTuning.deadzoneV = [.0, .15]
+    ret.longitudinalTuning.deadzoneBP = [0.,10.0]
+    ret.longitudinalTuning.deadzoneV = [0.15]
 
     ###ret.longitudinalTuning.kpBP = [5., 40.]
     ###ret.longitudinalTuning.kiBP = [0.]
@@ -104,12 +104,13 @@ class CarInterface(CarInterfaceBase):
       ###ret.longitudinalTuning.kiV = [0.36]
       ret.longitudinalTuning.kpV = [0.]
       ret.longitudinalTuning.kiV = [0.]
-      ret.stoppingDecelRate = 2.0  # reach brake quickly after enabling
+      ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
 
       if experimental_long:
-        ret.pcmCruise = False
+        ###ret.pcmCruise = False
+        ret.pcmCruise = True
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 

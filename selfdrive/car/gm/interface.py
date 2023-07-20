@@ -84,7 +84,7 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.kpBP = [5., 35.]
     ###ret.longitudinalTuning.kiBP = [0.]
-    ret.longitudinalTuning.kpBP = [5., 40.]
+    ret.longitudinalTuning.kpBP = [0.,0.]
     ret.longitudinalTuning.kiBP = [0.]
     
     if candidate in CAMERA_ACC_CAR:
@@ -98,11 +98,11 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ret.longitudinalTuning.kiV = [0.36]
+      ret.longitudinalTuning.kpV = [0.,0.]
+      ret.longitudinalTuning.kiV = [0.]
       ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
-      ret.vEgoStopping = 0.1
-      ret.vEgoStarting = 0.1
+      ret.vEgoStopping = 0.25
+      ret.vEgoStarting = 0.25
 
       if experimental_long:
         ret.pcmCruise = False

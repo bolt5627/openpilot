@@ -96,39 +96,29 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ###ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ###ret.longitudinalTuning.kiV = [0.36]
-      ###ret.stoppingDecelRate = 5.0  # reach brake quickly after enabling
-      ###ret.vEgoStopping = 0.1
-      ###ret.vEgoStarting = 0.1
-
-      ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ret.longitudinalTuning.kiV = [0.36]
-      ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
-      ret.vEgoStopping = 0.1
-      ###ret.vEgoStarting = 0.5
-      ret.vEgoStarting = 0.1
+      ret.longitudinalTuning.kpV = [2.0, 1.5]
+      ret.longitudinalTuning.kiV = [0.72]
+      ret.stoppingDecelRate = 2.0  # reach brake quickly after enabling
+      ret.vEgoStopping = 0.25
+      ret.vEgoStarting = 0.25
 
       if experimental_long:
         ret.pcmCruise = False
-        ###ret.pcmCruise = True
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 
-    ###else:  # ASCM, OBD-II harness
-      ###ret.openpilotLongitudinalControl = True
-      ###ret.networkLocation = NetworkLocation.gateway
-      ###ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
-      ###ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
-      ###ret.pcmCruise = True
+      else:  # ASCM, OBD-II harness
+      ret.openpilotLongitudinalControl = True
+      ret.networkLocation = NetworkLocation.gateway
+      ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
+      ret.pcmCruise = False  # stock non-adaptive cruise control is kept off
       # supports stop and go, but initial engage must (conservatively) be above 18mph
-      ###ret.minEnableSpeed = 18 * CV.MPH_TO_MS
-      ###ret.minEnableSpeed = 0 * CV.MPH_TO_MS
-      ###ret.minSteerSpeed = 7 * CV.MPH_TO_MS
+      ret.minEnableSpeed = 18 * CV.MPH_TO_MS
+      ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
-      ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ret.longitudinalTuning.kiV = [0.36]
+      ret.longitudinalTuning.kpV = [2.0, 1.5]
+      ret.longitudinalTuning.kiV = [0.72]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is
@@ -227,7 +217,6 @@ class CarInterface(CarInterfaceBase):
       ret.centerToFront = ret.wheelbase * 0.4
       tire_stiffness_factor = 1.0
       ret.steerActuatorDelay = 0.1
-      ret.minEnableSpeed = -1.
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
    
     elif candidate == CAR.SILVERADO:

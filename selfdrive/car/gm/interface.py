@@ -79,8 +79,8 @@ class CarInterface(CarInterfaceBase):
     else:
       ret.transmissionType = TransmissionType.automatic
 
-    ret.longitudinalTuning.deadzoneBP = [0.]
-    ret.longitudinalTuning.deadzoneV = [0.15]
+    ret.longitudinalTuning.deadzoneBP = [0.,9.]
+    ret.longitudinalTuning.deadzoneV = [.0,.15]
 
     ret.longitudinalTuning.kpBP = [5., 35.]
     ret.longitudinalTuning.kiBP = [0.]
@@ -97,7 +97,7 @@ class CarInterface(CarInterfaceBase):
       # Tuning for experimental long
       ret.longitudinalTuning.kpV = [2.0, 1.5]
       ret.longitudinalTuning.kiV = [0.72]
-      ret.stoppingDecelRate = 2.0  # reach brake quickly after enabling
+      ret.stoppingDecelRate = 0.4  # reach brake quickly after enabling
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
 
@@ -116,8 +116,8 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
-      ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ret.longitudinalTuning.kiV = [0.36]
+      ret.longitudinalTuning.kpV = [2.0, 1.5]
+      ret.longitudinalTuning.kiV = [0.72]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is

@@ -79,12 +79,12 @@ class CarInterface(CarInterfaceBase):
     else:
       ret.transmissionType = TransmissionType.automatic
 
-    ret.longitudinalTuning.deadzoneBP = [0., 9.]
-    ret.longitudinalTuning.deadzoneV = [.0, .15]
+    ret.longitudinalTuning.deadzoneBP = [0.]
+    ret.longitudinalTuning.deadzoneV = [0.15]
 
     ret.longitudinalTuning.kpBP = [5., 35.]
     ret.longitudinalTuning.kiBP = [0.]
-    
+
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
       ret.networkLocation = NetworkLocation.fwdCamera
@@ -106,7 +106,7 @@ class CarInterface(CarInterfaceBase):
         ret.openpilotLongitudinalControl = True
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 
-      else:  # ASCM, OBD-II harness
+    else:  # ASCM, OBD-II harness
       ret.openpilotLongitudinalControl = True
       ret.networkLocation = NetworkLocation.gateway
       ret.radarUnavailable = RADAR_HEADER_MSG not in fingerprint[CanBus.OBSTACLE] and not docs
@@ -116,10 +116,8 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
-      ###ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ###ret.longitudinalTuning.kiV = [0.36]
-      ret.longitudinalTuning.kpV = [2.0, 1.5]
-      ret.longitudinalTuning.kiV = [0.72]
+      ret.longitudinalTuning.kpV = [2.4, 1.5]
+      ret.longitudinalTuning.kiV = [0.36]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is
@@ -210,22 +208,27 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.13, 0.24], [0.01, 0.02]]
       ret.lateralTuning.pid.kf = 0.000045
       tire_stiffness_factor = 1.0
-      
+
     elif candidate == CAR.BOLT_EUV:
       ret.mass = 1669. + STD_CARGO_KG
       ret.wheelbase = 2.63779
-      ret.steerRatio = 17.3
+      ret.steerRatio = 16.8
       ret.centerToFront = ret.wheelbase * 0.4
       tire_stiffness_factor = 1.0
-      ret.steerActuatorDelay = 0.1
+      ret.steerActuatorDelay = 0.2
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
-   
+
     elif candidate == CAR.SILVERADO:
       ret.mass = 2200. + STD_CARGO_KG
       ret.wheelbase = 3.75
       ret.steerRatio = 16.3
       ret.centerToFront = ret.wheelbase * 0.5
       tire_stiffness_factor = 1.0
+      # On the Bolt, the ECM and camera independently check that you are either above 5 kph or at a stop
+      # with foot on brake to allow engagement, but this platform only has that check in the camera.
+      # TODO: check if this is split by EV/ICE with more platforms in the future
+      if ret.openpilotLongitudinalControl:
+        ret.minEnableSpeed = -1.
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
 
     elif candidate == CAR.EQUINOX:
@@ -273,16 +276,14 @@ class CarInterface(CarInterfaceBase):
 
     # Enabling at a standstill with brake is allowed
     # TODO: verify 17 Volt can enable for the first time at a stop and allow for all GMs
-    # Enabling at a standstill with brake is allowed
-    # TODO: verify 17 Volt can enable for the first time at a stop and allow for all GMs
-    #below_min_enable_speed = ret.vEgo < self.CP.minEnableSpeed or self.CS.moving_backward
-    #if below_min_enable_speed and not (ret.standstill and ret.brake >= 20 and
-    #                                   self.CP.networkLocation == NetworkLocation.fwdCamera):
-    #  events.add(EventName.belowEngageSpeed)
-    #if ret.cruiseState.standstill:
-    #  events.add(EventName.resumeRequired)
-    #if ret.vEgo < self.CP.minSteerSpeed:
-    #  events.add(EventName.belowSteerSpeed)
+    below_min_enable_speed = ret.vEgo < self.CP.minEnableSpeed or self.CS.moving_backward
+    if below_min_enable_speed and not (ret.standstill and ret.brake >= 20 and
+                                       self.CP.networkLocation == NetworkLocation.fwdCamera):
+      events.add(EventName.belowEngageSpeed)
+    if ret.cruiseState.standstill:
+      events.add(EventName.resumeRequired)
+    if ret.vEgo < self.CP.minSteerSpeed:
+      events.add(EventName.belowSteerSpeed)
 
     ret.events = events.to_msg()
 

@@ -84,13 +84,14 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.kpBP = [5., 35.]
     ###ret.longitudinalTuning.kiBP = [0.]
-    ret.longitudinalTuning.kpBP = [5., 40.]
-    ret.longitudinalTuning.kiBP = [0.]
+    ###ret.longitudinalTuning.kpBP = [0.]
+    ###ret.longitudinalTuning.kiBP = [0.]
+    ###ret.longitudinalTuning.kpV = [0.]
+    ###ret.longitudinalTuning.kiV = [0.]
     
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
       ret.networkLocation = NetworkLocation.fwdCamera
-      ###ret.radarUnavailable = False  # no radar
       ret.radarUnavailable = True  # no radar
       ret.pcmCruise = True
       ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
@@ -98,10 +99,9 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ret.longitudinalTuning.kpV = [0.]
-      ret.longitudinalTuning.kiV = [0.]
-      ret.longitudinalTuning.kpV = [0.]
-      ret.longitudinalTuning.kiV = [0.]
+
+      ####ret.longitudinalTuning.kpV = [0.]
+      ####ret.longitudinalTuning.kiV = [0.]
       ret.stoppingDecelRate = 6.0  # reach brake quickly after enabling
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
@@ -109,13 +109,19 @@ class CarInterface(CarInterfaceBase):
       if experimental_long:
         ret.pcmCruise = False
         ret.openpilotLongitudinalControl = True
+        ret.longitudinalTuning.deadzoneBP = [0.]
+        ret.longitudinalTuning.deadzoneV = [0.15]
+        ret.longitudinalTuning.kpBP = [5., 35.]
+        ret.longitudinalTuning.kiBP = [0.]
+        ret.longitudinalTuning.kpV = [0.]
+        ret.longitudinalTuning.kiV = [0.]
         ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
 
       # Tuning
       ###ret.longitudinalTuning.kpV = [2.4, 1.5]
       ###ret.longitudinalTuning.kiV = [0.36]
-      ####ret.longitudinalTuning.kpV = [2.4, 1.5]
-      ####ret.longitudinalTuning.kiV = [0.]
+      #####ret.longitudinalTuning.kpV = [2.4, 1.5]
+      #####ret.longitudinalTuning.kiV = [0.]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is

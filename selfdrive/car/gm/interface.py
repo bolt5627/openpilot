@@ -96,8 +96,8 @@ class CarInterface(CarInterfaceBase):
 
       # Tuning for experimental long
       ret.longitudinalTuning.kpV = [2.0, 1.5]
-      ret.longitudinalTuning.kiV = [0.72]
-      ret.stoppingDecelRate = 0.4  # reach brake quickly after enabling
+      ret.longitudinalTuning.kiV = [0.36]
+      ret.stoppingDecelRate = 2  # reach brake quickly after enabling
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
 
@@ -117,7 +117,7 @@ class CarInterface(CarInterfaceBase):
 
       # Tuning
       ret.longitudinalTuning.kpV = [2.0, 1.5]
-      ret.longitudinalTuning.kiV = [0.72]
+      ret.longitudinalTuning.kiV = [0.36]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is
@@ -212,10 +212,10 @@ class CarInterface(CarInterfaceBase):
     elif candidate == CAR.BOLT_EUV:
       ret.mass = 1669. + STD_CARGO_KG
       ret.wheelbase = 2.63779
-      ret.steerRatio = 16.8
+      ret.steerRatio = 17.3
       ret.centerToFront = ret.wheelbase * 0.4
       tire_stiffness_factor = 1.0
-      ret.steerActuatorDelay = 0.2
+      ret.steerActuatorDelay = 0.1
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
 
     elif candidate == CAR.SILVERADO:

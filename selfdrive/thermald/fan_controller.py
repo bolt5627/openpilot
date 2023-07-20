@@ -108,6 +108,6 @@ class UnoFanController(BaseFanController):
     new_speed = int(interp(max_cpu_temp, [40.0, 60.0, 70.0, 80.0], [0, 20, 50, 80]))
 
     if ignition:
-      new_speed = max(15, new_speed)
+      new_speed = max(32000, new_speed)
 
     return new_speed

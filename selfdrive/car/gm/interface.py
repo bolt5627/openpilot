@@ -96,8 +96,8 @@ class CarInterface(CarInterfaceBase):
 
       # Tuning for experimental long
       ret.longitudinalTuning.kpV = [2.0, 1.5]
-      ret.longitudinalTuning.kiV = [0.72]
-      ret.stoppingDecelRate = 0.4  # reach brake quickly after enabling
+      ret.longitudinalTuning.kiV = [0.36]
+      ret.stoppingDecelRate = 2  # reach brake quickly after enabling
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
 
@@ -117,7 +117,7 @@ class CarInterface(CarInterfaceBase):
 
       # Tuning
       ret.longitudinalTuning.kpV = [2.0, 1.5]
-      ret.longitudinalTuning.kiV = [0.72]
+      ret.longitudinalTuning.kiV = [0.36]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is

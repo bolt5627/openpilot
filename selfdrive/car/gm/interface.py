@@ -80,7 +80,7 @@ class CarInterface(CarInterfaceBase):
       ret.transmissionType = TransmissionType.automatic
 
     ret.longitudinalTuning.deadzoneBP = [0., 9.5]
-    ret.longitudinalTuning.deadzoneV = [.0, .18]
+    ret.longitudinalTuning.deadzoneV = [.0, .2]
 
     ret.longitudinalTuning.kpBP = [5., 35.]
     ret.longitudinalTuning.kiBP = [0.]
@@ -96,7 +96,7 @@ class CarInterface(CarInterfaceBase):
 
       # Tuning for experimental long
       ret.longitudinalTuning.kpV = [1.4, 0.5]
-      ret.longitudinalTuning.kiV = [0.36]
+      ret.longitudinalTuning.kiV = [0.4]
       ret.stoppingDecelRate = 2  # reach brake quickly after enabling
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25

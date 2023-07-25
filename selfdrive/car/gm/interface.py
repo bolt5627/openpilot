@@ -102,9 +102,10 @@ class CarInterface(CarInterfaceBase):
       ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
       ret.longitudinalTuning.kiV = [.35, .23, .20, .17, .1]
 
-      ret.stoppingDecelRate = 2  # # reach stopping target smoothly
-      ret.vEgoStopping = 0.2
-      ret.vEgoStarting = 0.2
+      ###ret.stoppingDecelRate = 2  # # reach stopping target smoothly
+      ret.stoppingDecelRate = 3  # # reach stopping target smoothly
+      ret.vEgoStopping = 0.25
+      ret.vEgoStarting = 0.25
 
       if experimental_long:
         ret.pcmCruise = False
@@ -122,7 +123,7 @@ class CarInterface(CarInterfaceBase):
 
       # Tuning
       ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
-      ret.longitudinalTuning.kiV = [.35, .20, .1]
+      ret.longitudinalTuning.kiV = [.35, .23, .20, .17, .1]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is

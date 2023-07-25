@@ -84,7 +84,7 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.kpBP = [5., 35.]
     ###ret.longitudinalTuning.kiBP = [0.]
-    ret.longitudinalTuning.kpBP = [0., 5., 20.]
+    ret.longitudinalTuning.kpBP = [0., 5., 35.]
     ret.longitudinalTuning.kiBP = [0., 12., 27.]
 
     if candidate in CAMERA_ACC_CAR:
@@ -99,7 +99,7 @@ class CarInterface(CarInterfaceBase):
       # Tuning for experimental long
       ###ret.longitudinalTuning.kpV = [1.4, 0.5]
       ###ret.longitudinalTuning.kiV = [0.4]
-      ret.longitudinalTuning.kpV = [1.1, 0.8, 0.5]
+      ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
       ret.longitudinalTuning.kiV = [.35, .20, .1]
 
       ret.stoppingDecelRate = 2  # # reach stopping target smoothly
@@ -121,7 +121,7 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
-      ret.longitudinalTuning.kpV = [1.1, 0.8, 0.5]
+      ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
       ret.longitudinalTuning.kiV = [.35, .20, .1]
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.

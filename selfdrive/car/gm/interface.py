@@ -82,8 +82,8 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalTuning.deadzoneBP = [0., 9.]
     ret.longitudinalTuning.deadzoneV = [.0, .15]
 
-    ###ret.longitudinalTuning.kpBP = [5., 35.]
-    ###ret.longitudinalTuning.kiBP = [0.]
+    ###ret.longitudinalTuning.kpBP = [0., 5., 35.]
+    ###ret.longitudinalTuning.kiBP = [0., 12., 27.]
     ret.longitudinalTuning.kpBP = [0., 5., 35.]
     ret.longitudinalTuning.kiBP = [0., 12., 27.]
 
@@ -97,8 +97,8 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ###ret.longitudinalTuning.kpV = [1.4, 0.5]
-      ###ret.longitudinalTuning.kiV = [0.4]
+      ###ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
+      ###ret.longitudinalTuning.kiV = [.35, .20, .1]
       ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
       ret.longitudinalTuning.kiV = [.35, .20, .1]
 

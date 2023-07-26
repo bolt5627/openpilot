@@ -84,7 +84,7 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.kpBP = [0., 5., 20.]
     ###ret.longitudinalTuning.kiBP = [0., 5., 12., 20., 27.]
-    ret.longitudinalTuning.kpBP = [0., 5., 20., 35.]
+    ret.longitudinalTuning.kpBP = [0., 5., 35.]
     ret.longitudinalTuning.kiBP = [0., 5., 9., 13., 17., 21., 25., 29.]
 
     if candidate in CAMERA_ACC_CAR:

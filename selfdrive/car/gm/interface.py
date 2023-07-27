@@ -84,8 +84,8 @@ class CarInterface(CarInterfaceBase):
 
     ###ret.longitudinalTuning.kpBP = [0., 5., 20.]
     ###ret.longitudinalTuning.kiBP = [0., 5., 12., 20., 27.]
-    ret.longitudinalTuning.kpBP = [0., 5., 20.]
-    ret.longitudinalTuning.kiBP = [0., 5., 9., 13., 17., 21., 25., 29.]
+    ret.longitudinalTuning.kpBP = [0., 5., 20., 30.] 
+    ret.longitudinalTuning.kiBP = [0., 8.3, 11.9, 13.8, 19.7, 30., 33., 40.]
 
     if candidate in CAMERA_ACC_CAR:
       ret.experimentalLongitudinalAvailable = True
@@ -98,11 +98,9 @@ class CarInterface(CarInterfaceBase):
 
       # Tuning for experimental long
       ###ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
-      ###ret.longitudinalTuning.kiV = [.35, .20, .1]
-      ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
-      #####ret.longitudinalTuning.kiV = [.35, .32, .29, .26, .23, .20, .17, .1]
-      #####ret.longitudinalTuning.kiV = [.35, .28, .26, .24, .22, .20, .18, .1]
-      ret.longitudinalTuning.kiV = [.35, .26, .24, .22, .20, .18, .16, .1]
+      ###ret.longitudinalTuning.kiV = [.35, .23, .20, .17, .1]
+      ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7, 0.1]
+      ret.longitudinalTuning.kiV = [.02, .03, .14, .18, .18, .06, .01, .001] 
 
       ###ret.stoppingDecelRate = 2  # # reach stopping target smoothly
       ret.stoppingDecelRate = 0.3  # # reach stopping target smoothly
@@ -124,10 +122,9 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
-      ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
-      #####ret.longitudinalTuning.kiV = [.35, .32, .29, .26, .23, .20, .17, .1]
-      #####ret.longitudinalTuning.kiV = [.35, .28, .26, .24, .22, .20, .18, .1]
-      ret.longitudinalTuning.kiV = [.35, .26, .24, .22, .20, .18, .16, .1]
+      ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7, 0.1]
+      ret.longitudinalTuning.kiV = [.02, .03, .14, .18, .18, .06, .01, .001] 
+
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.
     # These cars likely still work fine. Once a user confirms each car works and a test route is

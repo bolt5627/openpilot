@@ -110,8 +110,8 @@ class CarInterface(CarInterfaceBase):
       if experimental_long:
         ret.pcmCruise = False
         ret.openpilotLongitudinalControl = True
-        #####ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
-        ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
+        ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM_LONG
+        #####ret.safetyConfigs[0].safetyParam |= Panda.FLAG_GM_HW_CAM
 
     else:  # ASCM, OBD-II harness
       ret.openpilotLongitudinalControl = True

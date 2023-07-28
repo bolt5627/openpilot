@@ -143,6 +143,8 @@ class CarInterface(CarInterfaceBase):
     ret.steerLimitTimer = 0.4
     ret.radarTimeStep = 0.0667  # GM radar runs at 15Hz instead of standard 20Hz
     ret.longitudinalActuatorDelayUpperBound = 0.5  # large delay to initially start braking
+    #####ret.longitudinalActuatorDelayLowerBound = 0.5
+    ret.longitudinalActuatorDelayLowerBound = 0.5
 
     if candidate == CAR.VOLT:
       ret.mass = 1607. + STD_CARGO_KG
@@ -222,7 +224,7 @@ class CarInterface(CarInterfaceBase):
       ret.wheelbase = 2.63779
       ret.steerRatio = 17.8
       ret.centerToFront = ret.wheelbase * 0.4
-      tire_stiffness_factor = 0.4
+      tire_stiffness_factor = 0.469
       ret.steerActuatorDelay = 0.05
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
 

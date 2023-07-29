@@ -81,9 +81,6 @@ class CarInterface(CarInterfaceBase):
 
     ret.longitudinalTuning.deadzoneBP = [0.]
     ret.longitudinalTuning.deadzoneV = [0.15]
-
-    ###ret.longitudinalTuning.kpBP = [0., 5., 20.]
-    ###ret.longitudinalTuning.kiBP = [0., 5., 12., 20., 27.]
     ret.longitudinalTuning.kpBP = [0., 0.] 
     ret.longitudinalTuning.kiBP = [0., 0.]
 
@@ -97,12 +94,9 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 10 * CV.KPH_TO_MS
 
       # Tuning for experimental long
-      ###ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7]
-      ###ret.longitudinalTuning.kiV = [.35, .23, .20, .17, .1]
       ret.longitudinalTuning.kpV = [0.2, 0.00]
       ret.longitudinalTuning.kiV = [0.2, 0.00] 
 
-      ###ret.stoppingDecelRate = 0.3  # # reach stopping target smoothly
       ret.stoppingDecelRate = 0.3  # # reach stopping target smoothly
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
@@ -143,7 +137,6 @@ class CarInterface(CarInterfaceBase):
     ret.steerLimitTimer = 0.4
     ret.radarTimeStep = 0.0667  # GM radar runs at 15Hz instead of standard 20Hz
     ret.longitudinalActuatorDelayUpperBound = 0.5  # large delay to initially start braking
-    #####ret.longitudinalActuatorDelayLowerBound = 0.5
     ret.longitudinalActuatorDelayLowerBound = 0.5
 
     if candidate == CAR.VOLT:
@@ -222,10 +215,10 @@ class CarInterface(CarInterfaceBase):
     elif candidate == CAR.BOLT_EUV:
       ret.mass = 1669. + STD_CARGO_KG
       ret.wheelbase = 2.63779
-      ret.steerRatio = 17.8
+      ret.steerRatio = 16.8
       ret.centerToFront = ret.wheelbase * 0.4
       tire_stiffness_factor = 0.469
-      ret.steerActuatorDelay = 0.05
+      ret.steerActuatorDelay = 0.15
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
 
     elif candidate == CAR.SILVERADO:

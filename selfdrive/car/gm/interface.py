@@ -123,8 +123,8 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = 7 * CV.MPH_TO_MS
 
       # Tuning
-      ret.longitudinalTuning.kpV = [1.3, 1.0, 0.7, 0.1]
-      ret.longitudinalTuning.kiV = [.02, .03, .14, .18, .18, .06, .01, .001] 
+      ret.longitudinalTuning.kpV = [0.2, 0.00]
+      ret.longitudinalTuning.kiV = [0.2, 0.00] 
 
 
     # These cars have been put into dashcam only due to both a lack of users and test coverage.

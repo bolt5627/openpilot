@@ -97,7 +97,7 @@ class CarInterface(CarInterfaceBase):
       ret.longitudinalTuning.kpV = [0.2, 0.00]
       ret.longitudinalTuning.kiV = [0.2, 0.00] 
 
-      ret.stoppingDecelRate = 0.3  # # reach stopping target smoothly
+      ret.stoppingDecelRate = 0.5  # # reach stopping target smoothly
       ret.vEgoStopping = 0.25
       ret.vEgoStarting = 0.25
 

@@ -97,9 +97,9 @@ class CarInterface(CarInterfaceBase):
       ret.longitudinalTuning.kpV = [0.2, 0.00]
       ret.longitudinalTuning.kiV = [0.2, 0.00] 
 
-      ret.stoppingDecelRate = 0.25  # # reach stopping target smoothly
-      ret.vEgoStopping = 0.25
-      ret.vEgoStarting = 0.25
+      ret.stoppingDecelRate = 0.1  # # reach stopping target smoothly
+      ret.vEgoStopping = 0.1
+      ret.vEgoStarting = 0.1
 
       if experimental_long:
         ret.pcmCruise = False

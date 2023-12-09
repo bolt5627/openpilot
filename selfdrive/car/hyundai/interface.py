@@ -110,13 +110,17 @@ class CarInterface(CarInterfaceBase):
     elif candidate in (CAR.KONA, CAR.KONA_EV, CAR.KONA_HEV, CAR.KONA_EV_2022):
       ret.mass = {CAR.KONA_EV: 1685., CAR.KONA_HEV: 1425., CAR.KONA_EV_2022: 1743.}.get(candidate, 1275.)
       ret.wheelbase = 2.6
-      ret.steerRatio = 13.42  # Spec
-      ret.tireStiffnessFactor = 0.385
+      #ret.steerRatio = 13.42  # Spec
+      ret.steerRatio = 14.0 # Spec
+      #ret.tireStiffnessFactor = 0.385
+      ret.tireStiffnessFactor = 1.0
     elif candidate in (CAR.IONIQ, CAR.IONIQ_EV_LTD, CAR.IONIQ_PHEV_2019, CAR.IONIQ_HEV_2022, CAR.IONIQ_EV_2020, CAR.IONIQ_PHEV):
       ret.mass = 1490.  # weight per hyundai site https://www.hyundaiusa.com/ioniq-electric/specifications.aspx
       ret.wheelbase = 2.7
-      ret.steerRatio = 13.73  # Spec
-      ret.tireStiffnessFactor = 0.385
+      #ret.steerRatio = 13.73  # Spec
+      #ret.tireStiffnessFactor = 0.385
+      ret.steerRatio = 14.0  # Spec
+      ret.tireStiffnessFactor = 1.0
       if candidate in (CAR.IONIQ, CAR.IONIQ_EV_LTD, CAR.IONIQ_PHEV_2019):
         ret.minSteerSpeed = 32 * CV.MPH_TO_MS
     elif candidate == CAR.VELOSTER:
@@ -148,8 +152,10 @@ class CarInterface(CarInterfaceBase):
     elif candidate in (CAR.KIA_NIRO_EV, CAR.KIA_NIRO_EV_2ND_GEN, CAR.KIA_NIRO_PHEV, CAR.KIA_NIRO_HEV_2021, CAR.KIA_NIRO_HEV_2ND_GEN):
       ret.mass = 3543. * CV.LB_TO_KG  # average of all the cars
       ret.wheelbase = 2.7
-      ret.steerRatio = 13.6  # average of all the cars
-      ret.tireStiffnessFactor = 0.385
+      #ret.steerRatio = 13.6  # average of all the cars
+      #ret.tireStiffnessFactor = 0.385
+      ret.steerRatio = 14.0 # average of all the cars
+      ret.tireStiffnessFactor = 1.0
       if candidate == CAR.KIA_NIRO_PHEV:
         ret.minSteerSpeed = 32 * CV.MPH_TO_MS
     elif candidate == CAR.KIA_SELTOS:
@@ -343,12 +349,12 @@ class CarInterface(CarInterfaceBase):
     events = self.create_common_events(ret, pcm_enable=self.CS.CP.pcmCruise, allow_enable=allow_enable)
 
     # low speed steer alert hysteresis logic (only for cars with steer cut off above 10 m/s)
-    if ret.vEgo < (self.CP.minSteerSpeed + 2.) and self.CP.minSteerSpeed > 10.:
-      self.low_speed_alert = True
-    if ret.vEgo > (self.CP.minSteerSpeed + 4.):
-      self.low_speed_alert = False
-    if self.low_speed_alert:
-      events.add(car.CarEvent.EventName.belowSteerSpeed)
+    #if ret.vEgo < (self.CP.minSteerSpeed + 2.) and self.CP.minSteerSpeed > 10.:
+    # self.low_speed_alert = True
+    #if ret.vEgo > (self.CP.minSteerSpeed + 4.):
+    # self.low_speed_alert = False
+    #if self.low_speed_alert:
+    #  events.add(car.CarEvent.EventName.belowSteerSpeed)
 
     ret.events = events.to_msg()
 

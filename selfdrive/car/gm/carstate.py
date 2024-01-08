@@ -114,9 +114,9 @@ class CarState(CarStateBase):
         ret.cruiseState.nonAdaptive = cam_cp.vl["ASCMActiveCruiseControlStatus"]["ACCCruiseState"] not in (2, 3)
 
 ##
-    if self.CP.enableBsm:
-      ret.leftBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["LeftBSM"] == 1
-      ret.rightBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["RightBSM"] == 1
+#    if self.CP.enableBsm:
+#      ret.leftBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["LeftBSM"] == 1
+#      ret.rightBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["RightBSM"] == 1
 ###
     
     return ret

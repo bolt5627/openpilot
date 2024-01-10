@@ -36,9 +36,9 @@ class CarState(CarStateBase):
     self.moving_backward = pt_cp.vl["EBCMWheelSpdRear"]["MovingBackward"] != 0
 
 ##
-    if self.CP.enableBsm:
-      ret.leftBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["LeftBSM"] == 1
-      ret.rightBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["RightBSM"] == 1
+#    if self.CP.enableBsm:
+#      ret.leftBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["LeftBSM"] == 1
+#      ret.rightBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["RightBSM"] == 1
 ###
     
     # Variables used for avoiding LKAS faults
@@ -129,7 +129,7 @@ class CarState(CarStateBase):
         ("AEBCmd", 10),
         ("ASCMLKASteeringCmd", 10),
         ("ASCMActiveCruiseControlStatus", 25),
-        ("BCMBSM", 10),
+
       ]
 
     return CANParser(DBC[CP.carFingerprint]["pt"], messages, CanBus.CAMERA)
@@ -151,7 +151,7 @@ class CarState(CarStateBase):
       ("ECMEngineStatus", 100),
       ("PSCMSteeringAngle", 100),
       ("ECMAcceleratorPos", 80),
-      ("BCMBSM", 10),
+
     ]
 
     # Used to read back last counter sent to PT by camera

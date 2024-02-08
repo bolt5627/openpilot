@@ -35,6 +35,12 @@ class CarState(CarStateBase):
     self.pscm_status = copy.copy(pt_cp.vl["PSCMStatus"])
     self.moving_backward = pt_cp.vl["EBCMWheelSpdRear"]["MovingBackward"] != 0
 
+##
+#    if self.CP.enableBsm:
+#      ret.leftBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["LeftBSM"] == 1
+#      ret.rightBlindspot = pt_cp.vl["BCMBlindSpotMonitors"]["RightBSM"] == 1
+###
+    
     # Variables used for avoiding LKAS faults
     self.loopback_lka_steering_cmd_updated = len(loopback_cp.vl_all["ASCMLKASteeringCmd"]["RollingCounter"]) > 0
     if self.loopback_lka_steering_cmd_updated:
@@ -112,11 +118,12 @@ class CarState(CarStateBase):
       # openpilot controls nonAdaptive when not pcmCruise
       if self.CP.pcmCruise:
         ret.cruiseState.nonAdaptive = cam_cp.vl["ASCMActiveCruiseControlStatus"]["ACCCruiseState"] not in (2, 3)
-
-    if self.CP.enableBsm:
-      ret.leftBlindspot = pt_cp.vl["BCMBlindSpotMonitor"]["LeftBSM"] == 1
-      ret.rightBlindspot = pt_cp.vl["BCMBlindSpotMonitor"]["RightBSM"] == 1
-
+        
+###
+#    if self.CP.enableBsm:
+#      ret.leftBlindspot = pt_cp.vl["BCMBlindSpotMonitor"]["LeftBSM"] == 1
+#      ret.rightBlindspot = pt_cp.vl["BCMBlindSpotMonitor"]["RightBSM"] == 1  
+#####    
     return ret
 
   @staticmethod
@@ -127,6 +134,7 @@ class CarState(CarStateBase):
         ("AEBCmd", 10),
         ("ASCMLKASteeringCmd", 10),
         ("ASCMActiveCruiseControlStatus", 25),
+
       ]
 
     return CANParser(DBC[CP.carFingerprint]["pt"], messages, CanBus.CAMERA)
@@ -148,11 +156,15 @@ class CarState(CarStateBase):
       ("ECMEngineStatus", 100),
       ("PSCMSteeringAngle", 100),
       ("ECMAcceleratorPos", 80),
-    ]
 
+    ]
+#####
     if CP.enableBsm:
       messages.append(("BCMBlindSpotMonitor", 10))
+###
+    
 
+    
     # Used to read back last counter sent to PT by camera
     if CP.networkLocation == NetworkLocation.fwdCamera:
       messages += [

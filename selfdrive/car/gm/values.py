@@ -1,6 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass
-from enum import Enum#, StrEnum
+#from enum import Enum#, StrEnum
+from enum import Enum
 from strenum import StrEnum
 from typing import Dict, List, Union
 
@@ -140,6 +141,7 @@ class CanBus:
   OBSTACLE = 1
   CAMERA = 2
   CHASSIS = 2
+  SW_GMLAN = 3
   LOOPBACK = 128
   DROPPED = 192
 

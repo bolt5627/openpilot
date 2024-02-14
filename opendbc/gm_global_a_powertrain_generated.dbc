@@ -127,8 +127,8 @@ BO_ 320 BCMTurnSignals: 3 K9_BCM
 
 ##########
 BO_ 322 BCMBlindSpotMonitors: 7 K9_BCM
- SG_ LeftBSM : 6|1@0+ (1,0) [0|0] "" NEO
- SG_ RightBSM : 7|1@0+ (1,0) [0|0] "" NEO
+ SG_ LeftBSM : 6|1@0+ (1,0) [0|1] "" NEO
+ SG_ RightBSM : 7|1@0+ (1,0) [0|1] "" NEO
 ###
 
 BO_ 328 PSCM_148: 1 K43_PSCM

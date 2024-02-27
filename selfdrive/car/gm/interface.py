@@ -74,7 +74,8 @@ class CarInterface(CarInterfaceBase):
     ret.carName = "gm"
     ret.safetyConfigs = [get_safety_config(car.CarParams.SafetyModel.gm)]
     ret.autoResumeSng = False
-    ##ret.enableBsm = 0x142 in fingerprint[CanBus.POWERTRAIN]
+    ###ret.enableBsm = 0x142 in fingerprint[CanBus.POWERTRAIN]
+        
 
     if candidate in EV_CAR:
       ret.transmissionType = TransmissionType.direct
@@ -83,7 +84,6 @@ class CarInterface(CarInterfaceBase):
 
     ret.longitudinalTuning.deadzoneBP = [0.]
     ret.longitudinalTuning.deadzoneV = [0.15]
-
     ret.longitudinalTuning.kpBP = [0., 0.] 
     ret.longitudinalTuning.kiBP = [0., 0.]
 
@@ -286,7 +286,7 @@ class CarInterface(CarInterfaceBase):
     #  events.add(EventName.resumeRequired)
     #if ret.vEgo < self.CP.minSteerSpeed:
     #  events.add(EventName.belowSteerSpeed)
-    
+
     ret.events = events.to_msg()
 
     return ret

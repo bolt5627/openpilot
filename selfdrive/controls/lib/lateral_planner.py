@@ -16,7 +16,7 @@ from openpilot.selfdrive.controls.lib.lane_planner import LanePlanner
 from openpilot.common.conversions import Conversions as CV
 
 TRAJECTORY_SIZE = 33
-CAMERA_OFFSET = 0.0
+CAMERA_OFFSET = -0.03
 
 
 PATH_COST = 1.0

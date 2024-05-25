@@ -294,12 +294,12 @@ def camera_malfunction_alert(CP: car.CarParams, CS: car.CarState, sm: messaging.
   return NormalPermanentAlert(_("Camera Malfunction"), ', '.join(bad_cams))
 
 
-def calibration_invalid_alert(CP: car.CarParams, CS: car.CarState, sm: messaging.SubMaster, metric: bool, soft_disable_time: int) -> Alert:
-  rpy = sm['liveCalibration'].rpyCalib
-  yaw = math.degrees(rpy[2] if len(rpy) == 3 else math.nan)
-  pitch = math.degrees(rpy[1] if len(rpy) == 3 else math.nan)
-  angles = _("Remount Device (Pitch: {pitch:.1f}°, Yaw: {yaw:.1f}°)").format(pitch=pitch, yaw=yaw)
-  return NormalPermanentAlert(_("Calibration Invalid"), angles)
+###def calibration_invalid_alert(CP: car.CarParams, CS: car.CarState, sm: messaging.SubMaster, metric: bool, soft_disable_time: int) -> Alert:
+###  rpy = sm['liveCalibration'].rpyCalib
+###  yaw = math.degrees(rpy[2] if len(rpy) == 3 else math.nan)
+###  pitch = math.degrees(rpy[1] if len(rpy) == 3 else math.nan)
+###  angles = _("Remount Device (Pitch: {pitch:.1f}°, Yaw: {yaw:.1f}°)").format(pitch=pitch, yaw=yaw)
+###  return NormalPermanentAlert(_("Calibration Invalid"), angles)
 
 
 def overheat_alert(CP: car.CarParams, CS: car.CarState, sm: messaging.SubMaster, metric: bool, soft_disable_time: int) -> Alert:
@@ -723,11 +723,11 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
   # Usually this can only be solved by removing the mount from the windshield completely,
   # and attaching while making sure the device is pointed straight forward and is level.
   # See https://comma.ai/setup for more information
-  EventName.calibrationInvalid: {
-    ET.PERMANENT: calibration_invalid_alert,
-    ET.SOFT_DISABLE: soft_disable_alert(_("Calibration Invalid: Remount Device & Recalibrate")),
-    ET.NO_ENTRY: NoEntryAlert(_("Calibration Invalid: Remount Device & Recalibrate")),
-  },
+  ###EventName.calibrationInvalid: {
+  ###  ET.PERMANENT: calibration_invalid_alert,
+  ###  ET.SOFT_DISABLE: soft_disable_alert(_("Calibration Invalid: Remount Device & Recalibrate")),
+  ###  ET.NO_ENTRY: NoEntryAlert(_("Calibration Invalid: Remount Device & Recalibrate")),
+  ###},
 
   EventName.calibrationIncomplete: {
     ET.PERMANENT: calibration_incomplete_alert,
